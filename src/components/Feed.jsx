@@ -11,6 +11,7 @@ import {
   getDoc,
   setDoc,
   arrayUnion,
+  orderBy,
 } from "firebase/firestore";
 import store from "../firebase/firestore";
 import BeerCard from "./BeerCard";
@@ -27,7 +28,7 @@ const beerConvert = {
 };
 
 const beerRef = collection(store, "beer-feed").withConverter(beerConvert);
-const beerQuery = query(beerRef);
+const beerQuery = query(beerRef, orderBy('createdAt', 'desc'));
 
 function Feed() {
   const user = useAuth();
@@ -79,8 +80,7 @@ function Feed() {
   }
 
   return (
-    <Container maxWidth="sm">
-    <div className="container d-flex flex-column gap-2">
+    <Container sx={{ marginTop: '1rem' }} maxWidth="md">
       <BeerMessage onSend={handleSendMessage} />
       {items.map((item) => (
         <BeerCard
@@ -90,7 +90,6 @@ function Feed() {
           key={item.id}
         />
       ))}
-    </div>
     </Container>
   );
 }
