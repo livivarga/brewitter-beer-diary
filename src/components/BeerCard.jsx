@@ -24,7 +24,7 @@ function BeerCard(props) {
             imgProps={{ referrerPolicy: "no-referrer" }}
           />
         }
-        title={entry.beer}
+        title={<Link to={`/message/${entry.id}`}>{entry.beer}</Link>}
         subheader={entry.type}
       ></CardHeader>
       <CardContent>
